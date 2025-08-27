@@ -6,12 +6,6 @@ resource_types:
       repository: dockerhub/teliaoss/github-pr-resource
 
 resources:
-- name: spring-boot-repo
-  type: git
-  source:
-    uri: ((git-repo-uri))
-    branch: ((git-branch))
-
 - name: spring-boot-hello-world-pr
   type: pull-request
   check_every: 3m
