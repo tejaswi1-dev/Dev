@@ -8,7 +8,7 @@ resource_types:
 resources:
 - name: spring-boot-hello-world-pr
   type: pull-request
-  check_every: 3m
+  check_every: 30m
   source:
     base_branch: ((git-branch))
     disable_ci_skip: true
