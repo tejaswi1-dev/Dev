@@ -22,7 +22,6 @@ jobs:
   - get: spring-boot-hello-world-pr
     trigger: true
     version: every
-    passed: [set-pipeline]
     params: { list_changed_files: true }
   - task: maven-build
     config:
