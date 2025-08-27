@@ -11,7 +11,7 @@ resources:
   check_every: 30m
   source:
     base_branch: ((git-branch))
-    access_token: ((github-access-token))
+    access_token: ((access_token))
     disable_ci_skip: true
     repository: ((git-repo))
     states:
