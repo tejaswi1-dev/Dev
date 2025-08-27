@@ -1,0 +1,4 @@
+---
+# Git repository configuration
+git-repo-uri: https://github.com/your-username/spring-boot-hello-world.git
+git-branch: main
