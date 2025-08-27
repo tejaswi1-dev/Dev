@@ -38,7 +38,7 @@ jobs:
           repository: maven
           tag: "3.8.5-openjdk-17"
       inputs:
-      - name: spring-boot-repo
+      - name: spring-boot-hello-world-pr
       outputs:
       - name: build-artifacts
       run:
@@ -46,7 +46,7 @@ jobs:
         args:
         - -c
         - |
-          cd spring-boot-repo
+          cd spring-boot-hello-world-pr
           echo "Starting Maven build..."
           mvn clean install -B -DskipTests=false
           echo "Build completed successfully!"
