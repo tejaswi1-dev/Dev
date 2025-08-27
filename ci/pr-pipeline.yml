@@ -1,9 +1,9 @@
 ---
 resource_types:
-- name: git
-  type: registry-image
-  source:
-    repository: concourse/git-resource
+  - name: pull-request
+    type: registry-image
+    source:
+      repository: dockerhub/teliaoss/github-pr-resource
 
 resources:
 - name: spring-boot-repo
@@ -12,11 +12,24 @@ resources:
     uri: ((git-repo-uri))
     branch: ((git-branch))
 
+- name: spring-boot-hello-world-pr
+  type: pull-request
+  check_every: 3m
+  source:
+    base_branch: main
+    disable_ci_skip: true
+    repository: manods/spring-boot-hello-world
+    states:
+      - OPEN
+
 jobs:
 - name: build-spring-boot
   plan:
-  - get: spring-boot-repo
+  - get: spring-boot-hello-world-pr
     trigger: true
+    version: every
+    passed: [set-pipeline]
+    params: { list_changed_files: true }
   - task: maven-build
     config:
       platform: linux
@@ -46,5 +59,16 @@ jobs:
           
           echo "Build artifacts:"
           ls -la ../build-artifacts/
-      caches:
-      - path: /root/.m2/repository
+    on_success:
+      do:
+        - put: spring-boot-hello-world-pr
+          inputs: [ spring-boot-hello-world-pr ]
+          params:
+            path: spring-boot-hello-world-pr
+            status: success
+    on_failure:
+      do:
+        - put: spring-boot-hello-world-pr
+          params:
+            path: spring-boot-hello-world-pr
+            status: failure

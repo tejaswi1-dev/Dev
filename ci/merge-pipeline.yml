@@ -1,0 +1,48 @@
+---
+resource_types:
+- name: git
+  type: registry-image
+  source:
+    repository: concourse/git-resource
+
+resources:
+- name: spring-boot-repo
+  type: git
+  source:
+    uri: ((git-repo-uri))
+    branch: ((git-branch))
+
+jobs:
+- name: build-spring-boot
+  plan:
+  - get: spring-boot-repo
+    trigger: true
+  - task: maven-build
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: maven
+          tag: "3.9.0-openjdk-17"
+      inputs:
+      - name: spring-boot-repo
+      outputs:
+      - name: build-artifacts
+      run:
+        path: /bin/bash
+        args:
+        - -c
+        - |
+          cd spring-boot-repo
+          echo "Starting Maven build..."
+          mvn clean install -B -DskipTests=false
+          echo "Build completed successfully!"
+          
+          # Copy artifacts to output
+          mkdir -p ../build-artifacts
+          cp target/*.jar ../build-artifacts/ || echo "No JAR files found"
+          cp pom.xml ../build-artifacts/
+          
+          echo "Build artifacts:"
+          ls -la ../build-artifacts/
