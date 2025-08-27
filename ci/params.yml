@@ -2,3 +2,4 @@
 # Git repository configuration
 git-repo: manods/spring-boot-hello-world
 git-branch: main
+access_token:
