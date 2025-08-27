@@ -9,7 +9,7 @@ resources:
 - name: spring-boot-repo
   type: git
   source:
-    uri: ((git-repo-uri))
+    uri: https://github.com/((git-repo))
     branch: ((git-branch))
 
 jobs:

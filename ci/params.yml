@@ -1,4 +1,4 @@
 ---
 # Git repository configuration
-git-repo-uri: https://github.com/manods/spring-boot-hello-world.git
+git-repo: manods/spring-boot-hello-world.git
 git-branch: main

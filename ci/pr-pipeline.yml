@@ -10,9 +10,9 @@ resources:
   type: pull-request
   check_every: 3m
   source:
-    base_branch: main
+    base_branch: ((git-branch))
     disable_ci_skip: true
-    repository: manods/spring-boot-hello-world
+    repository: https://github.com/((git-repo))
     states:
       - OPEN
 
