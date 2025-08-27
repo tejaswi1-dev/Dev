@@ -11,7 +11,6 @@ resources:
   source:
     uri: ((git-repo-uri))
     branch: ((git-branch))
-    private_key: ((git-private-key))
 
 jobs:
 - name: build-spring-boot
