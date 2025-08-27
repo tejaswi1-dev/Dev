@@ -35,7 +35,7 @@ jobs:
         type: registry-image
         source:
           repository: maven
-          tag: "3.9.0-openjdk-17"
+          tag: "3.8.5-openjdk-17"
       inputs:
       - name: spring-boot-repo
       outputs:
