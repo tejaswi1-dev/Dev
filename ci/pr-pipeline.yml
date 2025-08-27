@@ -12,7 +12,7 @@ resources:
   source:
     base_branch: ((git-branch))
     disable_ci_skip: true
-    repository: https://github.com/((git-repo))
+    repository: ((git-repo))
     states:
       - OPEN
 
@@ -23,6 +23,11 @@ jobs:
     trigger: true
     version: every
     params: { list_changed_files: true }
+  - put: update-status
+    resource: spring-boot-hello-world-pr
+    params:
+      path: spring-boot-hello-world-pr
+      status: pending    
   - task: maven-build
     config:
       platform: linux
